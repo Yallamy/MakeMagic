@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
 import br.com.magicApi.util.Constantes;
+import br.com.magicApi.util.Mensagem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -25,15 +26,15 @@ public class PersonagemDTO implements Serializable {
 	private static final long serialVersionUID = 2824483527406999645L;
 
 	@ApiModelProperty(value = Constantes.PERSONAGEM_NAME, position = 1)
-	@NotNull
+	@NotNull(message = Mensagem.NAME_REQUIRED)
 	private String name;
 	
 	@ApiModelProperty(value = Constantes.PERSONAGEM_ROLE, position = 2)
-	@NotNull
+	@NotNull(message = Mensagem.ROLE_REQUIRED)
 	private String role;
 	
 	@ApiModelProperty(value = Constantes.PERSONAGEM_SCHOOL, position = 3)
-	@NotNull
+	@NotNull(message = Mensagem.SCHOOL_REQUIRED)
 	private String school;
 	
 	@ApiModelProperty(value = Constantes.PERSONAGEM_HOUSE, position = 4)

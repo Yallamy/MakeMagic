@@ -1,6 +1,14 @@
 package br.com.magicApi.service.impl;
 
-import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
+import javax.annotation.PostConstruct;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -12,6 +20,7 @@ import org.springframework.stereotype.Service;
 import br.com.magicApi.dto.externo.HouseRequestDTO;
 import br.com.magicApi.entity.Personagem;
 import br.com.magicApi.exception.CustomException;
+import br.com.magicApi.exception.ServiceWsValidacao;
 import br.com.magicApi.externo.rest.PotterApiClient;
 import br.com.magicApi.repository.PersonagemRepository;
 import br.com.magicApi.service.PersonagemService;
@@ -30,13 +39,29 @@ public class PersonagemServiceImpl implements PersonagemService {
 	
 	@Autowired
 	private PotterApiClient potterApiClient;
+	
+	@Autowired
+	private Validator validator;
+	
+	@PostConstruct
+	public void init() {
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        this.validator = factory.getValidator();
+	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see br.com.magicApi.service.PersonagemService#create(br.com.magicApi.entity.Personagem)
 	 */
 	@Override
-	public Personagem create(@Valid Personagem personagem) throws CustomException {
+	public Personagem create(Personagem personagem) throws CustomException {
+		
+		Set<ConstraintViolation<Personagem>> violations = validator.validate(personagem);
+		
+		if(Objeto.isBlank(personagem) || violations.size() > BigDecimal.ZERO.intValue()) {
+			throw new CustomException(ServiceWsValidacao.BAD_REQUEST);
+		}
 		
 		if(Objeto.notBlank(personagem.getHouse())) {
 			
@@ -52,15 +77,31 @@ public class PersonagemServiceImpl implements PersonagemService {
 	 * @see br.com.magicApi.service.PersonagemService#update(br.com.magicApi.entity.Personagem)
 	 */
 	@Override
-	public void update(@Valid Personagem personagem) throws CustomException {
+	public void update(Personagem personagem) throws CustomException {
 		
-		if(Objeto.notBlank(personagem.getHouse())) {
+		Set<ConstraintViolation<Personagem>> violations = validator.validate(personagem);
+		
+		if(Objeto.isBlank(personagem) || violations.size() > BigDecimal.ZERO.intValue()
+				|| Objeto.isBlank(personagem.getId())) {
 			
-			potterApiClient.getHouse(
-					HouseRequestDTO.builder().houseId(personagem.getHouse()).build());
+			throw new CustomException(ServiceWsValidacao.BAD_REQUEST);
 		}
 		
-		repository.save(personagem);
+		try {
+
+			repository.findById(personagem.getId()).get(); 
+			
+			if(Objeto.notBlank(personagem.getHouse())) {
+				
+				potterApiClient.getHouse(
+						HouseRequestDTO.builder().houseId(personagem.getHouse()).build());
+			}
+			
+			repository.save(personagem);
+
+		} catch(NoSuchElementException ex) {
+			throw new CustomException(ServiceWsValidacao.PERSONAGEM_NAO_ENCONTRADO);
+		}
 	}
 	
 	/*
@@ -70,7 +111,17 @@ public class PersonagemServiceImpl implements PersonagemService {
 	@Override
 	public Personagem retrieve(Long id) throws CustomException {
 		
-		return repository.getOne(id);
+		if(Objeto.isBlank(id)) {
+			throw new CustomException(ServiceWsValidacao.BAD_REQUEST);
+		}
+		
+		try {
+			
+			return repository.findById(id).get();
+			
+		} catch(NoSuchElementException ex) {
+			throw new CustomException(ServiceWsValidacao.PERSONAGEM_NAO_ENCONTRADO);
+		}
 	}
 
 	/*
@@ -80,7 +131,18 @@ public class PersonagemServiceImpl implements PersonagemService {
 	@Override
 	public void delete(Personagem personagem) throws CustomException {
 		
-		repository.delete(personagem);
+		if(Objeto.isBlank(personagem) || Objeto.isBlank(personagem.getId())) {
+			throw new CustomException(ServiceWsValidacao.BAD_REQUEST);
+		}
+		
+		try {
+			
+			Personagem personagemSalvo = repository.findById(personagem.getId()).get(); 
+			repository.delete(personagemSalvo);
+
+		} catch(NoSuchElementException ex) {
+			throw new CustomException(ServiceWsValidacao.PERSONAGEM_NAO_ENCONTRADO);
+		}
 	}
 
 
@@ -91,6 +153,10 @@ public class PersonagemServiceImpl implements PersonagemService {
 	@Override
 	public Page<Personagem> list(Personagem personagem, Pageable pageable) throws CustomException {
 		
+		if(Objeto.isBlank(pageable)) {
+			throw new CustomException(ServiceWsValidacao.BAD_REQUEST);
+		}
+		
 		if(Objeto.isBlank(personagem)) {
 			personagem = Personagem.builder().build();
 		}
@@ -100,5 +166,4 @@ public class PersonagemServiceImpl implements PersonagemService {
 		
 		return repository.findAll(example, pageable); 
 	}
-
 }

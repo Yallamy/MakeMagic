@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasToString;
 import static org.junit.Assert.assertThat;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -53,11 +55,15 @@ public class PersonagemServiceImplTest {
 	@Mock
 	private HouseResponseDTO houseResponse;
 	
-	private Personagem personagem;
+	@Mock
+	private Pageable pageable;
 	
+	@Mock
 	private Page<Personagem> page;
 	
-	private Pageable pageable;
+	private Optional<Personagem> personagemResponse;
+	
+	private Personagem personagem;
 	
 	private Validator validator;
 
@@ -74,6 +80,8 @@ public class PersonagemServiceImplTest {
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		personagemResponse = Optional.of(this.personagem);
+		
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         this.validator = factory.getValidator();
 
@@ -81,8 +89,8 @@ public class PersonagemServiceImplTest {
 				Mockito.any(HouseRequestDTO.class))).thenReturn(this.houseResponse);
 		Mockito.when(this.repository.save(
 				Mockito.any(Personagem.class))).thenReturn(this.personagem);
-		Mockito.when(this.repository.getOne(
-				Mockito.any(Long.class))).thenReturn(this.personagem);
+		Mockito.when(this.repository.findById(
+				Mockito.any(Long.class))).thenReturn(this.personagemResponse);
 		Mockito.when(this.repository.findAll(
 				Mockito.any(Example.class), Mockito.any(Pageable.class))).thenReturn(this.page);
 		
@@ -100,6 +108,7 @@ public class PersonagemServiceImplTest {
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
 		Personagem response = this.personagemServiceImpl.create(request);
 
 		TestCase.assertNotNull(response);
@@ -116,6 +125,7 @@ public class PersonagemServiceImplTest {
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
 		Personagem response = this.personagemServiceImpl.create(request);
 
 		TestCase.assertNotNull(response);
@@ -132,6 +142,7 @@ public class PersonagemServiceImplTest {
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
 		Personagem response = this.personagemServiceImpl.create(request);
 
 		TestCase.assertNotNull(response);
@@ -150,6 +161,7 @@ public class PersonagemServiceImplTest {
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
 		Personagem response = this.personagemServiceImpl.create(request);
 
 		TestCase.assertNotNull(response);
@@ -168,6 +180,7 @@ public class PersonagemServiceImplTest {
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
 		Personagem response = this.personagemServiceImpl.create(request);
 
 		TestCase.assertNotNull(response);
@@ -181,6 +194,7 @@ public class PersonagemServiceImplTest {
 	public void updateTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
+				.id(EntityGenericUtil.getLong())
 				.name(EntityGenericUtil.getString())
 				.role(EntityGenericUtil.getString())
 				.school(EntityGenericUtil.getString())
@@ -188,6 +202,26 @@ public class PersonagemServiceImplTest {
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
+		this.personagemServiceImpl.update(request);
+	}
+	
+	@Test(expected=CustomException.class)
+	public void updatePersonagemNotFoundTest() throws CustomException {
+		
+		Mockito.when(this.repository.findById(
+				Mockito.any(Long.class))).thenThrow(NoSuchElementException.class);
+
+		Personagem request = Personagem.builder()
+				.id(EntityGenericUtil.getLong())
+				.name(EntityGenericUtil.getString())
+				.role(EntityGenericUtil.getString())
+				.school(EntityGenericUtil.getString())
+				.house(EntityGenericUtil.getString())
+				.patronus(EntityGenericUtil.getString())
+				.build();
+		
+		this.personagemServiceImpl.init();
 		this.personagemServiceImpl.update(request);
 	}
 	
@@ -195,12 +229,14 @@ public class PersonagemServiceImplTest {
 	public void updatePersonagemSemHouseTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
+				.id(EntityGenericUtil.getLong())
 				.name(EntityGenericUtil.getString())
 				.role(EntityGenericUtil.getString())
 				.school(EntityGenericUtil.getString())
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
 		this.personagemServiceImpl.update(request);
 	}
 	
@@ -208,12 +244,14 @@ public class PersonagemServiceImplTest {
 	public void updatePersonagemSemNameTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
+				.id(EntityGenericUtil.getLong())
 				.role(EntityGenericUtil.getString())
 				.school(EntityGenericUtil.getString())
 				.house(EntityGenericUtil.getString())
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
 		this.personagemServiceImpl.update(request);
 
 		Set<ConstraintViolation<Personagem>> violations = validator.validate(request);
@@ -225,12 +263,14 @@ public class PersonagemServiceImplTest {
 	public void updatePersonagemSemRoleTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
+				.id(EntityGenericUtil.getLong())
 				.name(EntityGenericUtil.getString())
 				.school(EntityGenericUtil.getString())
 				.house(EntityGenericUtil.getString())
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
 		this.personagemServiceImpl.update(request);
 
 		Set<ConstraintViolation<Personagem>> violations = validator.validate(request);
@@ -242,12 +282,14 @@ public class PersonagemServiceImplTest {
 	public void updatePersonagemSemSchoolTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
+				.id(EntityGenericUtil.getLong())
 				.name(EntityGenericUtil.getString())
 				.role(EntityGenericUtil.getString())
 				.house(EntityGenericUtil.getString())
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
+		this.personagemServiceImpl.init();
 		this.personagemServiceImpl.update(request);
 
 		Set<ConstraintViolation<Personagem>> violations = validator.validate(request);
@@ -256,7 +298,7 @@ public class PersonagemServiceImplTest {
 	}
 	
 	//retrieve
-	@Test(expected=CustomException.class)
+	@Test
 	public void retrieveTest() throws CustomException {
 		
 		Personagem response = this.personagemServiceImpl.retrieve(EntityGenericUtil.getLong());
@@ -266,11 +308,11 @@ public class PersonagemServiceImplTest {
 		TestCase.assertEquals(this.personagem, response);
 	}
 	
-	@Test
+	@Test(expected=CustomException.class)
 	public void retrieveNotFoundTest() throws CustomException {
 		
-		Mockito.when(this.repository.getOne(
-				Mockito.any(Long.class))).thenReturn(null);
+		Mockito.when(this.repository.findById(
+				Mockito.any(Long.class))).thenThrow(NoSuchElementException.class);
 		
 		Personagem response = this.personagemServiceImpl.retrieve(EntityGenericUtil.getLong());
 
@@ -280,10 +322,10 @@ public class PersonagemServiceImplTest {
 	@Test(expected=CustomException.class)
 	public void retrieveComNullTest() throws CustomException {
 		
-		Mockito.when(this.repository.getOne(
+		Mockito.when(this.repository.findById(
 				Mockito.any(Long.class))).thenReturn(null);
 		
-		Personagem response = this.personagemServiceImpl.retrieve(EntityGenericUtil.getLong());
+		Personagem response = this.personagemServiceImpl.retrieve(null);
 
 		TestCase.assertNotNull(response);
 	}
@@ -291,6 +333,15 @@ public class PersonagemServiceImplTest {
 	//delete
 	@Test
 	public void deleteTest() throws CustomException {
+		
+		this.personagemServiceImpl.delete(this.personagem);
+	}
+	
+	@Test(expected=CustomException.class)
+	public void deleteNotFoundTest() throws CustomException {
+		
+		Mockito.when(this.repository.findById(
+				Mockito.any(Long.class))).thenThrow(NoSuchElementException.class);
 		
 		this.personagemServiceImpl.delete(this.personagem);
 	}

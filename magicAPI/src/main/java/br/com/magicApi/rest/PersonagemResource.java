@@ -139,7 +139,7 @@ public class PersonagemResource {
 	@ApiOperation(value = StringUtils.EMPTY, 
 		notes = StringUtils.EMPTY, response = PersonagemResponseDTO.class) //FIXME
 	public @ResponseBody ResponseEntity<Page<?>> list(
-			@PageableDefault(value = 30, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+			@PageableDefault(value = 30, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
 			@RequestBody PersonagemRequestDTO character) throws CustomException {
 		
 		Personagem personagem = Util.convertModelMapper(character, Personagem.class);
