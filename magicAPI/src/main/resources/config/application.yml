@@ -2,22 +2,14 @@ server.error.whitelabel.enabled: true
 server:
     port: 8080
     connection-timeout: 30000
-    context-path: /v1
 magicApiConfig:  
     potterApi:
         url: https://www.potterapi.com/v1
-        key: $2a$10$XMsa/.OCwOh2rnKd0NpQKen7H.57alzNfubuR8ytGpM1B94mii5rC
-    rest:
-        connectionTimeout: 10000
-        readTimeout: 10000                                                           
-    internacionalizacao:
-        path: http://localhost:${server.port}${server.context-path}${springfox.documentation.swagger.v2.path}
+        key: $2a$10$XMsa/.OCwOh2rnKd0NpQKen7H.57alzNfubuR8ytGpM1B94mii5rC                                                         
     request:
         timeout: 30000
-    trace:
-        printAllTrace: false
 logging:
-    #file: magicApi.log
+    file: magicApi.log
 
 info:
     app:
@@ -25,11 +17,6 @@ info:
         description: Desafio Dextra
         version: @project.version@
         profile: desenvolvimento
-
-spring:
-    pid:
-        fail-on-write-error: false
-        #file: magic.pid
 
 swagger:
     title: Magic API
@@ -39,7 +26,4 @@ swagger:
     contact:
     license: Apache 2.0
     licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html
-    exibeInternos: true
     protocol: http
-
-springfox.documentation.swagger.v2.path: /swagger

@@ -30,10 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class PotterApiClient {
 
-	//@Getter
-	//@Autowired
-	//private CircuitBreakerManager circuitBreaker;
-
 	@Getter
 	@Autowired
 	private RestTemplate restTemplate;
@@ -66,10 +62,6 @@ public class PotterApiClient {
 		RestClientTemplate restClientTemplate = potterApiConexao.getHouse(requestEntity);
 
 		try {
-
-			//consumindo o serviço
-			//response = circuitBreaker.failsafe(() -> restTemplate.exchange(restClientTemplate.getUrl(), restClientTemplate.getHttpMethod(), 
-			//		restClientTemplate.getRequestHttpEntity(), String.class, restClientTemplate.getParams()), restClientTemplate.getUrl());
 			
 			response = restTemplate.exchange(restClientTemplate.getUrl(), restClientTemplate.getHttpMethod(), 
 					restClientTemplate.getRequestHttpEntity(), String.class, restClientTemplate.getParams());
