@@ -39,8 +39,8 @@ public class PotterApiConexao {
 	@PostConstruct
 	public void init() {
 
-		this.url = propriedades.getMagicApiConfig().potterApi.url;
-		this.key = propriedades.getMagicApiConfig().potterApi.key;
+		this.url = propriedades.getMagicApiConfig().getPotterApi().getUrl();
+		this.key = propriedades.getMagicApiConfig().getPotterApi().getKey();
 	}
 
 	/**

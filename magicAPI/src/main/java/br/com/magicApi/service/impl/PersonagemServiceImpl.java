@@ -1,10 +1,12 @@
 package br.com.magicApi.service.impl;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.magicApi.dto.externo.HouseRequestDTO;
@@ -81,14 +83,22 @@ public class PersonagemServiceImpl implements PersonagemService {
 		repository.delete(personagem);
 	}
 
+
 	/*
 	 * (non-Javadoc)
-	 * @see br.com.magicApi.service.PersonagemService#list(br.com.magicApi.entity.Personagem)
+	 * @see br.com.magicApi.service.PersonagemService#list(br.com.magicApi.entity.Personagem, org.springframework.data.domain.Pageable)
 	 */
 	@Override
-	public List<Personagem> list(Personagem personagem) throws CustomException {
-		// TODO Auto-generated method stub
-		return null; //FIXME
+	public Page<Personagem> list(Personagem personagem, Pageable pageable) throws CustomException {
+		
+		if(Objeto.isBlank(personagem)) {
+			personagem = Personagem.builder().build();
+		}
+
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
+		Example<Personagem> example = Example.of(personagem, matcher);
+		
+		return repository.findAll(example, pageable); 
 	}
 
 }

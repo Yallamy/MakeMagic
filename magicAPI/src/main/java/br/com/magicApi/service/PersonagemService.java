@@ -2,6 +2,9 @@ package br.com.magicApi.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import br.com.magicApi.entity.Personagem;
 import br.com.magicApi.exception.CustomException;
 
@@ -53,11 +56,12 @@ public interface PersonagemService {
 	/**
 	 * Método que lista os personagens com base nos filtros.
 	 * @param personagem - filtros a serem aplicados
-	 * @return List<Personagem> - lista de personagens
+	 * @param pageable - paginação
+	 * @return Page<Personagem> - lista de personagens
 	 * @throws CustomException 
 	 * @author Yallamy Nascimento (yallamy@gmail.com)
 	 * @since 5 de set de 2020
 	 */
-	public List<Personagem> list(Personagem personagem) throws CustomException;;
+	public Page<Personagem> list(Personagem personagem, Pageable pageable) throws CustomException;;
 
 }

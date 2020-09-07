@@ -1,11 +1,13 @@
 package br.com.magicApi.rest;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -136,13 +138,15 @@ public class PersonagemResource {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ApiOperation(value = StringUtils.EMPTY, 
 		notes = StringUtils.EMPTY, response = PersonagemResponseDTO.class) //FIXME
-	public @ResponseBody ResponseEntity<?> list(PersonagemRequestDTO character) throws CustomException {
+	public @ResponseBody ResponseEntity<Page<?>> list(
+			@PageableDefault(value = 30, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
+			@RequestBody PersonagemRequestDTO character) throws CustomException {
 		
 		Personagem personagem = Util.convertModelMapper(character, Personagem.class);
-		List<Personagem> personagens = this.service.list(personagem);
-		PersonagemResponseDTO response = Util.convertModelMapper(personagens, PersonagemResponseDTO.class);
+		Page<Personagem> response = this.service.list(personagem, pageable);
+		//PersonagemResponseDTO response = Util.convertModelMapper(personagens, PersonagemResponseDTO.class);FIXME
 		
-		return new ResponseEntity<PersonagemResponseDTO>(response, HttpStatus.OK); //FXIME - Page 
+		return ResponseEntity.ok(response);
 	}
 
 }

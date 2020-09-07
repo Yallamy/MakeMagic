@@ -19,34 +19,47 @@ import lombok.Setter;
 @Setter
 @EnableConfigurationProperties
 public class Propriedades {
-	
+
 	public MagicApiConfig magicApiConfig = new MagicApiConfig();
 
-    @Getter
-    @Setter
-    public class MagicApiConfig {
+	@Getter
+	@Setter
+	public class MagicApiConfig {
 
-         public PotterApi potterApi = new PotterApi();
+		public PotterApi potterApi = new PotterApi();
 
-         @Getter
-         @Setter
-         public class PotterApi {
+		@Getter
+		@Setter
+		public class PotterApi {
 
-              public String url;
+			public String url;
 
-              public String key;
-         }
-         
-         private Rest rest = new Rest();
+			public String key;
+		}
 
-         @Getter
-         @Setter
-         public class Rest {
+		private Rest rest = new Rest();
 
-           private int connectionTimeout;
+		@Getter
+		@Setter
+		public class Rest {
 
-           private int readTimeout;
+			private int connectionTimeout;
 
-         }
-    }
+			private int readTimeout;
+
+		}
+
+		private Failsafe failsafe = new Failsafe();
+
+		@Getter
+		@Setter
+		public class Failsafe {
+
+			private int failureNumber;
+
+			private int successNumber;
+
+			private int delayTimeSeconds;
+		}
+	}
 }

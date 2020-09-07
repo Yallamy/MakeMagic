@@ -18,6 +18,7 @@ import br.com.magicApi.externo.rest.conexao.PotterApiConexao;
 import br.com.magicApi.util.Constantes;
 import br.com.twsoftware.alfred.object.Objeto;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -38,8 +39,9 @@ public class PotterApiClient {
 	private RestTemplate restTemplate;
 
 	@Autowired
-	private PotterApiConexao tecbanApiConexao;
+	private PotterApiConexao potterApiConexao;
 	
+	@Setter
 	@Autowired
 	private Gson gson;
 
@@ -61,17 +63,14 @@ public class PotterApiClient {
 		}
 
 		//montando o template com os dados da conexão
-		RestClientTemplate restClientTemplate = tecbanApiConexao.getHouse(requestEntity);
+		RestClientTemplate restClientTemplate = potterApiConexao.getHouse(requestEntity);
 
 		try {
 
-			//FIXME
-
-			//ResponseEntity<?> response = circuitBreaker.failsafe(() -> restTemplate.exchange(restClientTemplate.getRequestEntity(), 
-		    //			restClientTemplate.getResponseType()), restClientTemplate.getUrl());
-			
-
 			//consumindo o serviço
+			//response = circuitBreaker.failsafe(() -> restTemplate.exchange(restClientTemplate.getUrl(), restClientTemplate.getHttpMethod(), 
+			//		restClientTemplate.getRequestHttpEntity(), String.class, restClientTemplate.getParams()), restClientTemplate.getUrl());
+			
 			response = restTemplate.exchange(restClientTemplate.getUrl(), restClientTemplate.getHttpMethod(), 
 					restClientTemplate.getRequestHttpEntity(), String.class, restClientTemplate.getParams());
 		

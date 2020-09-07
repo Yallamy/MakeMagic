@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Classe que encapsula os dados do personagem para transferência dos objetos pelo REST. 
@@ -17,6 +18,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @ApiModel(description = Constantes.PERSONAGEM)
 public class PersonagemDTO implements Serializable {
 	
