@@ -1,0 +1,57 @@
+                                                                                                    
+                                                          .:/+oo+/:`                                
+                                                      .+ymNmmmmmmmmNds-                             
+                                                    -yNmmmmmmmmmmmmmmmNh:                           
+                                                  .yNmmmmmmmmmmmmmmmmmmmNh.                         
+                                                 +mmmmmmmmmmmmmmNmmmmmmmmmm/                        
+                                               .hNmmmmmmmmmmmmNNNNmmmmmmmmmNs                       
+                                              :mmmmmmmmmmmmmmmNNmmmmmmmmmmmmNh`                     
+                                             +NmmmmmmmmmmmmmmmmMo//++oydNmmmmNh`                    
+                                            sNmmmmmmmmmmmmmmmmmN/      `:ymNmmNd.                   
+                                          `yNmmmmmmmmmmmmmmmmmmNs         `/ydNNd.                  
+                                         `yNmmmmmmmmmmmmmmmmmmmmd            `.:++`                 
+                                        `hNmmmmmmmmmmmmmmmmmmmmmN                                   
+                                       `hNmmmmmmmmmmmmmmmmmmmmmmN-                                  
+                                      `yNmmmmmmmmmmmmmmmmmmmmmmmN+                                  
+                                      yNmmmmmmmmmmmmmmmmmmmmmmmmNy                                  
+                                     sNmmmmmmmmmmmmmmmmmmmmmmmmmmm                                  
+                                    +NmmmmmmmmmmmmmmmmmmmmmmmmmmmN`                                 
+                                   /NmmmmmmmmmmmmmmmmmmmmmmmmmmmmN:                                 
+                                  -mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNo                                 
+                                 .mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmh                                 
+                                `hNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmN                                 
+                                sNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmN.                                
+                               /NmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmN/                                
+                              -NmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNs                                
+                             `dmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmd                                
+                             yNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmN`                               
+                            /NmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmN-                               
+                           .NmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmN+                               
+                          `dNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNy                               
+                          oNmmmmmmmmmmmmmmmmmmmmmmmmmmmddmmmmmmmmmmmm                               
+                         -NNNNNMMMMMMMMMMMMMMMMNNNNNmss/oyyyyyyhdmmmN`                              
+                        `mMMMMMMMMMMMMMMMMMMMMMMMMMMmoo:oNNNNNyo:oNmN:                              
+                        sMMMMMMMMMMMMMMMMMMMMMMMMMMMmos:+MMMMNdy::NMMo                              
+             ``..---:::/NMMMMMMMMMMMMMMMMMMMMMMMMMMMm+s:/MMMmys+::dMMh                              
+        `-+syyhhdddhhhhhhhhhhhhddddddmmmNNNMMMMMMMMMm+s::NMMMMNys:yMMN                              
+     .+yddddmmmmmmmmmmmmmmmmmmmmmddddhhhhyyhhhdddmNNmyh//hddmNNdy:+MMM.                             
+   `omNmNNmmmmmmmmmmmmmmmmmmmmmmmmmmmNNNNmmmmdhhyyyyyhhddhhhyssoo//MMM/                             
+  `dNNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNNmmmdhhyyyyyyyhhddhmNNh/:-.````            `..``    
+  :MNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNmmmdhhyyyyyyyyyyhhhddhhyyssoooo+oosshdddh+   
+  -NmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNmmmdhhyyyyyyyyyyyyyyyyyyyyyyyyyyyhdy   
+  `NmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNNmmddhhyyyyyyyyyyyyyyyhhdmmNs    
+   :dmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmNNNNmmmmmmmmmmmmNNNmmNs     
+     /hmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm/      
+       `:oydmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmh/        
+            `-:+oyhdmmNNNmmmmmmmmmmmmmmmmmmNNNNNNNNNNmmmmmmmmmNNNNNNNmmmmmmmmmmmmmNNmdyo:`          
+                      ``..---::::::::-----....``````          ``````..--:://///::-.`                
+                                                                                                                                             
+
+${AnsiColor.BLUE}    888b     d888        d8888  .d8888b.  8888888 .d8888b.              d8888 8888888b. 8888888 
+${AnsiColor.BLUE}    8888b   d8888       d88888 d88P  Y88b   888  d88P  Y88b            d88888 888   Y88b  888   
+${AnsiColor.BLUE}    88888b.d88888      d88P888 888    888   888  888    888           d88P888 888    888  888   
+${AnsiColor.BLUE}    888Y88888P888     d88P 888 888          888  888                 d88P 888 888   d88P  888   
+${AnsiColor.BLUE}    888 Y888P 888    d88P  888 888  88888   888  888                d88P  888 8888888P"   888   
+${AnsiColor.BLUE}    888  Y8P  888   d88P   888 888    888   888  888    888        d88P   888 888         888   
+${AnsiColor.BLUE}    888   "   888  d8888888888 Y88b  d88P   888  Y88b  d88P       d8888888888 888         888   
+${AnsiColor.BLUE}    888       888 d88P     888  "Y8888P88 8888888 "Y8888P"       d88P     888 888       8888888 

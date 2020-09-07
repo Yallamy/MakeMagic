@@ -1,6 +1,13 @@
 # MakeMagic
 Desafio Dextra
 
+Swagger:
+```
+http://localhost:8080//swagger-ui.html
+
+```
+
+
 Criar um personagem:
 
 **POST http://localhost:8080/api/magic/personagem/** 

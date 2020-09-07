@@ -2,7 +2,6 @@ package br.com.magicApi.rest;
 
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,8 +51,8 @@ public class PersonagemResource {
 	 * @since 5 de set de 2020
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	@ApiOperation(value = StringUtils.EMPTY, 
-		notes = StringUtils.EMPTY, response = PersonagemResponseDTO.class) //FIXME
+	@ApiOperation(value = Constantes.CREATE_PERSONAGEM, 
+		notes = Constantes.CREATE_PERSONAGEM_NOTES, response = PersonagemResponseDTO.class)
 	public @ResponseBody ResponseEntity<?> create(@Valid @RequestBody PersonagemDTO character) throws CustomException {
 		
 		Personagem personagem = Util.convertModelMapper(character, Personagem.class);
@@ -73,8 +72,8 @@ public class PersonagemResource {
 	 * @since 5 de set de 2020
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	@ApiOperation(value = StringUtils.EMPTY, 
-		notes = StringUtils.EMPTY, response = PersonagemResponseDTO.class) //FIXME
+	@ApiOperation(value = Constantes.UPDATE_PERSONAGEM, 
+		notes = Constantes.UPDATE_PERSONAGEM_NOTES, response = PersonagemResponseDTO.class)
 	public @ResponseBody ResponseEntity<?> update(
 			@PathVariable("id") Long id,
 			@Valid @RequestBody PersonagemDTO character) throws CustomException {
@@ -97,8 +96,8 @@ public class PersonagemResource {
 	 * @since 5 de set de 2020
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	@ApiOperation(value = StringUtils.EMPTY, 
-		notes = StringUtils.EMPTY, response = PersonagemResponseDTO.class) //FIXME
+	@ApiOperation(value = Constantes.RETRIEVE_PERSONAGEM, 
+		notes = Constantes.RETRIEVE_PERSONAGEM_NOTES, response = PersonagemResponseDTO.class)
 	public @ResponseBody ResponseEntity<?> retrieve(
 			@PathVariable("id") Long id) throws CustomException {
 		
@@ -117,8 +116,8 @@ public class PersonagemResource {
 	 * @since 5 de set de 2020
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	@ApiOperation(value = StringUtils.EMPTY, 
-		notes = StringUtils.EMPTY) //FIXME
+	@ApiOperation(value = Constantes.DELETE_PERSONAGEM, 
+		notes = Constantes.DELETE_PERSONAGEM_NOTES)
 	public @ResponseBody ResponseEntity<?> delete(@PathVariable("id") Long id) throws CustomException {
 		
 		Personagem personagem = Personagem.builder().id(id).build();
@@ -136,15 +135,14 @@ public class PersonagemResource {
 	 * @since 5 de set de 2020
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	@ApiOperation(value = StringUtils.EMPTY, 
-		notes = StringUtils.EMPTY, response = PersonagemResponseDTO.class) //FIXME
+	@ApiOperation(value = Constantes.LIST_PERSONAGEM, 
+		notes = Constantes.LIST_PERSONAGEM_NOTES, response = PersonagemResponseDTO.class)
 	public @ResponseBody ResponseEntity<Page<?>> list(
 			@PageableDefault(value = 30, sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
 			@RequestBody PersonagemRequestDTO character) throws CustomException {
 		
 		Personagem personagem = Util.convertModelMapper(character, Personagem.class);
 		Page<Personagem> response = this.service.list(personagem, pageable);
-		//PersonagemResponseDTO response = Util.convertModelMapper(personagens, PersonagemResponseDTO.class);FIXME
 		
 		return ResponseEntity.ok(response);
 	}

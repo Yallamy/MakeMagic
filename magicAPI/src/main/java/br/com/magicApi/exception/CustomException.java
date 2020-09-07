@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.web.server.ResponseStatusException;
+
 
 /**
  * Classe que representa a customização das exceptions do sistema.
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 5 de set de 2020
  */
-public class CustomException extends Exception {
+public class CustomException extends ResponseStatusException {
 
 	private static final long serialVersionUID = 5101008253945611515L;
 	
@@ -27,7 +29,8 @@ public class CustomException extends Exception {
 	 */
 	public CustomException(GenericValidacao erro) {
 		
-		super(erro.getCodigoErro());
+		super(erro.getHttpStatus(), erro.getCodigoErro());
+		
 		this.erro = erro;
 		this.parametros = new ArrayList<String>();
 	}
@@ -41,7 +44,7 @@ public class CustomException extends Exception {
 	 */
 	public CustomException(GenericValidacao erro, Exception ex) {
 		
-		super(erro.getCodigoErro(), ex);
+		super(erro.getHttpStatus(), erro.getCodigoErro(), ex);
 		this.erro = erro;
 		this.parametros = new ArrayList<String>();
 	}
@@ -55,7 +58,7 @@ public class CustomException extends Exception {
 	 */
 	public CustomException(GenericValidacao erro, String... params) {
 		
-		super(erro.getCodigoErro());
+		super(erro.getHttpStatus(), erro.getCodigoErro());
 		this.erro = erro;
 		this.parametros = Arrays.asList(params);
 	}
@@ -70,7 +73,7 @@ public class CustomException extends Exception {
 	 */
 	public CustomException(GenericValidacao erro, Exception ex, String... params) {
 		
-		super(erro.getCodigoErro(), ex);
+		super(erro.getHttpStatus(), erro.getCodigoErro(), ex);
 		this.erro = erro;
 		this.parametros = Arrays.asList(params);
 	}
