@@ -55,11 +55,13 @@ public class Propriedades {
 		@Setter
 		public class Failsafe {
 
-			private int failureNumber;
+			private int failureRateThreshold;
 
-			private int successNumber;
+			private int waitDurationInOpenState;
 
-			private int delayTimeSeconds;
+			private int slidingWindowSize;
+			
+			private int timeoutDuration;
 		}
 	}
 }

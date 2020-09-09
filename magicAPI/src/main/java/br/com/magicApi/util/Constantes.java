@@ -65,5 +65,7 @@ public class Constantes {
 	//outras constantes
 	public static final String TAG_ERRO = "message";
 	
+	public static final String CIRCUIT_BREAKER = "circuitBreaker";
+	
 
 }

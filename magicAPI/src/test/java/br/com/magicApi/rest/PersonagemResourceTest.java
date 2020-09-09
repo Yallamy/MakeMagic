@@ -116,7 +116,7 @@ public class PersonagemResourceTest {
 		
 		this.request.setName("Godric Gryffindor");
 
-		this.mockMvc.perform(MockMvcRequestBuilders.post(this.urlBase)
+		this.mockMvc.perform(MockMvcRequestBuilders.put(this.urlBase + 1)
 				.content(gson.toJson(request))
         		.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
@@ -128,10 +128,21 @@ public class PersonagemResourceTest {
 		this.request.setName("Harry Potter");
 		this.request.setHouse(null);
 
-		this.mockMvc.perform(MockMvcRequestBuilders.post(this.urlBase)
+		this.mockMvc.perform(MockMvcRequestBuilders.put(this.urlBase + 1)
 				.content(gson.toJson(request))
         		.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+	@Test
+	public void updateNotFoundTest() throws Exception {
+		
+		this.request.setName("Godric Gryffindor");
+
+		this.mockMvc.perform(MockMvcRequestBuilders.put(this.urlBase + 15)
+				.content(gson.toJson(request))
+        		.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
 	
 	@Test
@@ -139,7 +150,7 @@ public class PersonagemResourceTest {
 
 		this.request.setName(null);
 		
-		this.mockMvc.perform(MockMvcRequestBuilders.post(this.urlBase)
+		this.mockMvc.perform(MockMvcRequestBuilders.put(this.urlBase + 1)
 				.content(gson.toJson(request))
         		.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -150,7 +161,7 @@ public class PersonagemResourceTest {
 
 		this.request.setRole(null);
 		
-		this.mockMvc.perform(MockMvcRequestBuilders.post(this.urlBase)
+		this.mockMvc.perform(MockMvcRequestBuilders.put(this.urlBase + 1)
 				.content(gson.toJson(request))
         		.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -161,7 +172,7 @@ public class PersonagemResourceTest {
 
 		this.request.setSchool(null);
 		
-		this.mockMvc.perform(MockMvcRequestBuilders.post(this.urlBase)
+		this.mockMvc.perform(MockMvcRequestBuilders.put(this.urlBase + 1)
 				.content(gson.toJson(request))
         		.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isBadRequest());

@@ -12,7 +12,6 @@ import br.com.magicApi.config.Propriedades;
 @EnableConfigurationProperties({ Propriedades.class })
 @EnableScheduling
 @EnableCaching
-
 public class MagicAPI {
 
 	public static void main(String[] args) {

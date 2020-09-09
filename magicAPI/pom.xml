@@ -8,18 +8,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   	<artifactId>magicAPI</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
   	<name>MagicAPI</name>
-  	<description>Desafio Dextra</description>
+  	<description>Desafio Teste</description>
   
   	<parent>
   		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.0.RELEASE</version>
+		<version>2.2.0.RELEASE</version>
 		<relativePath/> 
   	</parent>
   
   	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
   	</properties>
   	
   	<dependencies>
@@ -34,6 +35,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+		    <version>1.0.2.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>

@@ -2,7 +2,11 @@ package br.com.magicApi.externo.rest;
 
 import java.math.BigDecimal;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -28,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
-public class PotterApiClient {
+public class PotterApiClient extends ApiClient {
 
 	@Getter
 	@Autowired
@@ -40,6 +44,18 @@ public class PotterApiClient {
 	@Setter
 	@Autowired
 	private Gson gson;
+	
+	@SuppressWarnings("rawtypes")
+	@Autowired
+    private CircuitBreakerFactory circuitBreakerFactory;
+	
+	private CircuitBreaker circuitBreaker;
+	
+	@PostConstruct
+	public void init() {
+
+		this.circuitBreaker = circuitBreakerFactory.create(Constantes.CIRCUIT_BREAKER);
+	}
 
 	/**
 	 * Consome o serviço de consultar casa da PotterApi.
@@ -63,8 +79,9 @@ public class PotterApiClient {
 
 		try {
 			
-			response = restTemplate.exchange(restClientTemplate.getUrl(), restClientTemplate.getHttpMethod(), 
-					restClientTemplate.getRequestHttpEntity(), String.class, restClientTemplate.getParams());
+			response = (ResponseEntity<?>) this.circuitBreaker.run(() -> restTemplate.exchange(restClientTemplate.getUrl(), restClientTemplate.getHttpMethod(), 
+					restClientTemplate.getRequestHttpEntity(), String.class, restClientTemplate.getParams()),
+					throwable -> failure());
 		
 		} catch (Exception ex) {
 			log.error("Erro na requisicao GET " + restClientTemplate.getUrl() + ". Mensagem: {}", ex.getMessage());

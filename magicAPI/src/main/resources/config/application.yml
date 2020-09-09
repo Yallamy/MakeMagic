@@ -8,19 +8,28 @@ magicApiConfig:
         key: $2a$10$XMsa/.OCwOh2rnKd0NpQKen7H.57alzNfubuR8ytGpM1B94mii5rC                                                         
     request:
         timeout: 30000
+    rest:
+        connectionTimeout: 10000
+        readTimeout: 10000
+    failsafe:
+        failureRateThreshold: 10
+        waitDurationInOpenState: 1000
+        slidingWindowSize: 2             
+        timeoutDuration: 5
+        
 logging:
     file: magicApi.log
 
 info:
     app:
         name: Magic API
-        description: Desafio Dextra
+        description: Desafio Teste
         version: @project.version@
         profile: desenvolvimento
 
 swagger:
     title: Magic API
-    description: Desafio Dextra
+    description: Desafio Teste
     version: @project.version@
     termsOfServiceUrl:
     contact:
