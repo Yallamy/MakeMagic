@@ -21,7 +21,7 @@ public interface PersonagemService {
 	 * @author Yallamy Nascimento (yallamy@gmail.com)
 	 * @since 5 de set de 2020
 	 */
-	public Personagem create(Personagem personagem) throws CustomException;;
+	public Personagem create(Personagem personagem) throws CustomException;
 	
 	/**
 	 * Método que atualiza um personagem.
@@ -30,7 +30,7 @@ public interface PersonagemService {
 	 * @author Yallamy Nascimento (yallamy@gmail.com)
 	 * @since 5 de set de 2020
 	 */
-	public void update(Personagem personagem) throws CustomException;;
+	public void update(Personagem personagem) throws CustomException;
 	
 	/**
 	 * Método que recupera um personagem
@@ -49,7 +49,7 @@ public interface PersonagemService {
 	 * @author Yallamy Nascimento (yallamy@gmail.com)
 	 * @since 5 de set de 2020
 	 */
-	public void delete(Personagem personagem) throws CustomException;;
+	public void delete(Personagem personagem) throws CustomException;
 	
 	/**
 	 * Método que lista os personagens com base nos filtros.
@@ -60,6 +60,6 @@ public interface PersonagemService {
 	 * @author Yallamy Nascimento (yallamy@gmail.com)
 	 * @since 5 de set de 2020
 	 */
-	public Page<Personagem> list(Personagem personagem, Pageable pageable) throws CustomException;;
+	public Page<Personagem> list(Personagem personagem, Pageable pageable) throws CustomException;
 
 }
