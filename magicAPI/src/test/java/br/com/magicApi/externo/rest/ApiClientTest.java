@@ -1,21 +1,22 @@
 package br.com.magicApi.externo.rest;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.magicApi.exception.CustomException;
-import junit.framework.TestCase;
 
 /**
  * Classe de teste que representa os cenários de testes da classe {@link ApiClient}
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 9 de set de 2020
  */
-@RunWith(SpringRunner.class)
+@SpringBootTest
 public class ApiClientTest {
 	
 	@InjectMocks
@@ -26,7 +27,7 @@ public class ApiClientTest {
 
 		ResponseEntity<?> response = this.apiClient.failure();
 		
-		TestCase.assertNotNull(response);
-		TestCase.assertEquals(HttpStatus.BAD_GATEWAY, response.getStatusCode());
+		assertNotNull(response);
+		assertEquals(HttpStatus.BAD_GATEWAY, response.getStatusCode());
 	}
 }

@@ -2,7 +2,6 @@ package br.com.magicApi.externo.rest;
 
 import java.util.Map;
 
-import org.junit.Ignore;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -21,7 +20,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Ignore
 @Data
 public class RestClientTemplate {
 

@@ -1,14 +1,12 @@
 package br.com.magicApi.rest;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -25,7 +23,6 @@ import br.com.magicApi.dto.PersonagemRequestDTO;
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 6 de set de 2020
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = MagicAPI.class)
 public class PersonagemResourceTest {
 	
@@ -41,7 +38,7 @@ public class PersonagemResourceTest {
 	
 	private PersonagemDTO request;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		
 		this.mockMvc = MockMvcBuilders.standaloneSetup(personagemResource)

@@ -1,30 +1,21 @@
 package br.com.magicApi.service.impl;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.hasToString;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.magicApi.EntityGenericUtil;
 import br.com.magicApi.dto.externo.HouseRequestDTO;
@@ -33,14 +24,13 @@ import br.com.magicApi.entity.Personagem;
 import br.com.magicApi.exception.CustomException;
 import br.com.magicApi.externo.rest.PotterApiClient;
 import br.com.magicApi.repository.PersonagemRepository;
-import junit.framework.TestCase;
 
 /**
  * Classe de teste que representa os cenários de testes da classe {@link PersonagemServiceImpl}
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 6 de set de 2020
  */
-@RunWith(SpringRunner.class)
+@SpringBootTest
 public class PersonagemServiceImplTest {
 
 	@InjectMocks
@@ -64,11 +54,9 @@ public class PersonagemServiceImplTest {
 	private Optional<Personagem> personagemResponse;
 	
 	private Personagem personagem;
-	
-	private Validator validator;
 
 	@SuppressWarnings("unchecked")
-	@Before
+	@BeforeEach
 	public void setup() throws CustomException {
 		
 		this.personagem = Personagem.builder()
@@ -81,9 +69,6 @@ public class PersonagemServiceImplTest {
 				.build();
 		
 		personagemResponse = Optional.of(this.personagem);
-		
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        this.validator = factory.getValidator();
 
 		Mockito.when(this.potterApiClient.getHouse(
 				Mockito.any(HouseRequestDTO.class))).thenReturn(this.houseResponse);
@@ -111,8 +96,8 @@ public class PersonagemServiceImplTest {
 		this.personagemServiceImpl.init();
 		Personagem response = this.personagemServiceImpl.create(request);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getId());
+		assertNotNull(response);
+		assertNotNull(response.getId());
 	}
 	
 	@Test
@@ -128,11 +113,11 @@ public class PersonagemServiceImplTest {
 		this.personagemServiceImpl.init();
 		Personagem response = this.personagemServiceImpl.create(request);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getId());
+		assertNotNull(response);
+		assertNotNull(response.getId());
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void createPersonagemSemNameTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
@@ -143,15 +128,13 @@ public class PersonagemServiceImplTest {
 				.build();
 		
 		this.personagemServiceImpl.init();
-		Personagem response = this.personagemServiceImpl.create(request);
-
-		TestCase.assertNotNull(response);
-		Set<ConstraintViolation<Personagem>> violations = validator.validate(request);
-		assertTrue(violations.size() == 1);
-		assertThat(violations, contains(hasProperty("propertyPath", hasToString("name"))));
+		
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.create(request);
+		});
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void createPersonagemSemRoleTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
@@ -162,15 +145,13 @@ public class PersonagemServiceImplTest {
 				.build();
 		
 		this.personagemServiceImpl.init();
-		Personagem response = this.personagemServiceImpl.create(request);
-
-		TestCase.assertNotNull(response);
-		Set<ConstraintViolation<Personagem>> violations = validator.validate(request);
-		assertTrue(violations.size() == 1);
-		assertThat(violations, contains(hasProperty("propertyPath", hasToString("role"))));
+		
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.create(request);
+		});
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void createPersonagemSemSchoolTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
@@ -181,12 +162,10 @@ public class PersonagemServiceImplTest {
 				.build();
 		
 		this.personagemServiceImpl.init();
-		Personagem response = this.personagemServiceImpl.create(request);
 
-		TestCase.assertNotNull(response);
-		Set<ConstraintViolation<Personagem>> violations = validator.validate(request);
-		assertTrue(violations.size() == 1);
-		assertThat(violations, contains(hasProperty("propertyPath", hasToString("school"))));
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.create(request);
+		});
 	}
 	
 	//update
@@ -206,7 +185,7 @@ public class PersonagemServiceImplTest {
 		this.personagemServiceImpl.update(request);
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void updatePersonagemNotFoundTest() throws CustomException {
 		
 		Mockito.when(this.repository.findById(
@@ -222,7 +201,10 @@ public class PersonagemServiceImplTest {
 				.build();
 		
 		this.personagemServiceImpl.init();
-		this.personagemServiceImpl.update(request);
+		
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.update(request);
+		});
 	}
 	
 	@Test
@@ -240,7 +222,7 @@ public class PersonagemServiceImplTest {
 		this.personagemServiceImpl.update(request);
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void updatePersonagemSemNameTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
@@ -252,14 +234,13 @@ public class PersonagemServiceImplTest {
 				.build();
 		
 		this.personagemServiceImpl.init();
-		this.personagemServiceImpl.update(request);
 
-		Set<ConstraintViolation<Personagem>> violations = validator.validate(request);
-		assertTrue(violations.size() == 1);
-		assertThat(violations, contains(hasProperty("propertyPath", hasToString("name"))));
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.update(request);
+		});
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void updatePersonagemSemRoleTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
@@ -271,14 +252,13 @@ public class PersonagemServiceImplTest {
 				.build();
 		
 		this.personagemServiceImpl.init();
-		this.personagemServiceImpl.update(request);
-
-		Set<ConstraintViolation<Personagem>> violations = validator.validate(request);
-		assertTrue(violations.size() == 1);
-		assertThat(violations, contains(hasProperty("propertyPath", hasToString("role"))));
+		
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.update(request);
+		});
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void updatePersonagemSemSchoolTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
@@ -290,11 +270,10 @@ public class PersonagemServiceImplTest {
 				.build();
 		
 		this.personagemServiceImpl.init();
-		this.personagemServiceImpl.update(request);
-
-		Set<ConstraintViolation<Personagem>> violations = validator.validate(request);
-		assertTrue(violations.size() == 1);
-		assertThat(violations, contains(hasProperty("propertyPath", hasToString("school"))));
+		
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.update(request);
+		});
 	}
 	
 	//retrieve
@@ -303,31 +282,31 @@ public class PersonagemServiceImplTest {
 		
 		Personagem response = this.personagemServiceImpl.retrieve(EntityGenericUtil.getLong());
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getId());
-		TestCase.assertEquals(this.personagem, response);
+		assertNotNull(response);
+		assertNotNull(response.getId());
+		assertEquals(this.personagem, response);
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void retrieveNotFoundTest() throws CustomException {
 		
 		Mockito.when(this.repository.findById(
 				Mockito.any(Long.class))).thenThrow(NoSuchElementException.class);
 		
-		Personagem response = this.personagemServiceImpl.retrieve(EntityGenericUtil.getLong());
-
-		TestCase.assertNull(response);
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.retrieve(EntityGenericUtil.getLong());
+		});
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void retrieveComNullTest() throws CustomException {
 		
 		Mockito.when(this.repository.findById(
 				Mockito.any(Long.class))).thenReturn(null);
 		
-		Personagem response = this.personagemServiceImpl.retrieve(null);
-
-		TestCase.assertNotNull(response);
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.retrieve(null);
+		});
 	}
 	
 	//delete
@@ -337,22 +316,26 @@ public class PersonagemServiceImplTest {
 		this.personagemServiceImpl.delete(this.personagem);
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void deleteNotFoundTest() throws CustomException {
 		
 		Mockito.when(this.repository.findById(
 				Mockito.any(Long.class))).thenThrow(NoSuchElementException.class);
 		
-		this.personagemServiceImpl.delete(this.personagem);
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.delete(this.personagem);
+		});
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void deletePersonagemNullTest() throws CustomException {
 		
-		this.personagemServiceImpl.delete(null);
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.delete(null);
+		});
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void deletePersonagemSemIdTest() throws CustomException {
 
 		Personagem request = Personagem.builder()
@@ -363,7 +346,9 @@ public class PersonagemServiceImplTest {
 				.patronus(EntityGenericUtil.getString())
 				.build();
 		
-		this.personagemServiceImpl.delete(request);
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.delete(request);
+		});
 	}
 	
 	//list
@@ -375,8 +360,8 @@ public class PersonagemServiceImplTest {
 		
 		Page<Personagem> response = this.personagemServiceImpl.list(request, pageable);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getContent().size() == 1);
+		assertNotNull(response);
+		assertNotNull(response.getContent().size() == 1);
 	}
 	
 	@Test
@@ -384,20 +369,19 @@ public class PersonagemServiceImplTest {
 		
 		Page<Personagem> response = this.personagemServiceImpl.list(null, pageable);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getContent().size() == 1);
+		assertNotNull(response);
+		assertNotNull(response.getContent().size() == 1);
 	}
 	
-	@Test(expected=CustomException.class)
+	@Test()
 	public void listComPageableNullTest() throws CustomException {
 		
 		Personagem request = Personagem.builder()
 				.build();
 		
-		Page<Personagem> response = this.personagemServiceImpl.list(request, null);
-
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getContent().size() == 1);
+		assertThrows(CustomException.class, () -> {
+			this.personagemServiceImpl.list(request, null);
+		});
 	}
 	
 	@Test
@@ -409,8 +393,8 @@ public class PersonagemServiceImplTest {
 		
 		Page<Personagem> response = this.personagemServiceImpl.list(request, pageable);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getContent().size() == 1);
+		assertNotNull(response);
+		assertNotNull(response.getContent().size() == 1);
 	}
 	
 	@Test
@@ -422,8 +406,8 @@ public class PersonagemServiceImplTest {
 		
 		Page<Personagem> response = this.personagemServiceImpl.list(request, pageable);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getContent().size() == 1);
+		assertNotNull(response);
+		assertNotNull(response.getContent().size() == 1);
 	}
 	
 	@Test
@@ -435,8 +419,8 @@ public class PersonagemServiceImplTest {
 		
 		Page<Personagem> response = this.personagemServiceImpl.list(request, pageable);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getContent().size() == 1);
+		assertNotNull(response);
+		assertNotNull(response.getContent().size() == 1);
 	}
 	
 	
@@ -449,8 +433,8 @@ public class PersonagemServiceImplTest {
 		
 		Page<Personagem> response = this.personagemServiceImpl.list(request, pageable);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getContent().size() == 1);
+		assertNotNull(response);
+		assertNotNull(response.getContent().size() == 1);
 	}
 	
 	
@@ -463,8 +447,8 @@ public class PersonagemServiceImplTest {
 		
 		Page<Personagem> response = this.personagemServiceImpl.list(request, pageable);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getContent().size() == 1);
+		assertNotNull(response);
+		assertNotNull(response.getContent().size() == 1);
 	}
 	
 	@Test
@@ -476,7 +460,7 @@ public class PersonagemServiceImplTest {
 		
 		Page<Personagem> response = this.personagemServiceImpl.list(request, pageable);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getContent().size() == 1);
+		assertNotNull(response);
+		assertNotNull(response.getContent().size() == 1);
 	}
 }

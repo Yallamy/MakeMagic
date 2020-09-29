@@ -1,19 +1,18 @@
 package br.com.magicApi.dto.externo;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import br.com.magicApi.EntityGenericUtil;
-import junit.framework.TestCase;
 
 /**
  * Classe de teste que representa os cenários de testes da classe {@link HouseResponseDTO}
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 6 de set de 2020
  */
-@RunWith(SpringRunner.class)
 public class HouseResponseDTOTest {
 	
 	private String _id;
@@ -30,7 +29,7 @@ public class HouseResponseDTOTest {
 
 	private String school;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 
 		this._id = EntityGenericUtil.getString();
@@ -48,14 +47,14 @@ public class HouseResponseDTOTest {
 		HouseResponseDTO response = new HouseResponseDTO(this._id, this.name, this.mascot, 
 				this.headOfHouse, this.houseGhost, this.founder, this.school);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertEquals(this._id, response.get_id());
-		TestCase.assertEquals(this.name, response.getName());
-		TestCase.assertEquals(this.mascot, response.getMascot());
-		TestCase.assertEquals(this.headOfHouse, response.getHeadOfHouse());
-		TestCase.assertEquals(this.houseGhost, response.getHouseGhost());
-		TestCase.assertEquals(this.founder, response.getFounder());
-		TestCase.assertEquals(this.school, response.getSchool());
+		assertNotNull(response);
+		assertEquals(this._id, response.get_id());
+		assertEquals(this.name, response.getName());
+		assertEquals(this.mascot, response.getMascot());
+		assertEquals(this.headOfHouse, response.getHeadOfHouse());
+		assertEquals(this.houseGhost, response.getHouseGhost());
+		assertEquals(this.founder, response.getFounder());
+		assertEquals(this.school, response.getSchool());
 	}
 
 	@Test
@@ -63,14 +62,14 @@ public class HouseResponseDTOTest {
 
 		HouseResponseDTO response = new HouseResponseDTO();
 
-		TestCase.assertNotNull(response);
-		TestCase.assertEquals(null, response.get_id());
-		TestCase.assertEquals(null, response.getName());
-		TestCase.assertEquals(null, response.getMascot());
-		TestCase.assertEquals(null, response.getHeadOfHouse());
-		TestCase.assertEquals(null, response.getHouseGhost());
-		TestCase.assertEquals(null, response.getFounder());
-		TestCase.assertEquals(null, response.getSchool());
+		assertNotNull(response);
+		assertEquals(null, response.get_id());
+		assertEquals(null, response.getName());
+		assertEquals(null, response.getMascot());
+		assertEquals(null, response.getHeadOfHouse());
+		assertEquals(null, response.getHouseGhost());
+		assertEquals(null, response.getFounder());
+		assertEquals(null, response.getSchool());
 	}
 
 	@Test
@@ -85,13 +84,13 @@ public class HouseResponseDTOTest {
 		response.setFounder(this.founder);
 		response.setSchool(this.school);
 
-		TestCase.assertEquals(this._id, response.get_id());
-		TestCase.assertEquals(this.name, response.getName());
-		TestCase.assertEquals(this.mascot, response.getMascot());
-		TestCase.assertEquals(this.headOfHouse, response.getHeadOfHouse());
-		TestCase.assertEquals(this.houseGhost, response.getHouseGhost());
-		TestCase.assertEquals(this.founder, response.getFounder());
-		TestCase.assertEquals(this.school, response.getSchool());
+		assertEquals(this._id, response.get_id());
+		assertEquals(this.name, response.getName());
+		assertEquals(this.mascot, response.getMascot());
+		assertEquals(this.headOfHouse, response.getHeadOfHouse());
+		assertEquals(this.houseGhost, response.getHouseGhost());
+		assertEquals(this.founder, response.getFounder());
+		assertEquals(this.school, response.getSchool());
 	}
 	
 	@Test
@@ -103,9 +102,9 @@ public class HouseResponseDTOTest {
 		HouseResponseDTO response2 = new HouseResponseDTO(this._id, this.name, this.mascot, 
 				this.headOfHouse, this.houseGhost, this.founder, this.school);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response2);
-		TestCase.assertEquals(response, response2);
+		assertNotNull(response);
+		assertNotNull(response2);
+		assertEquals(response, response2);
 	}
 	
 	@Test
@@ -117,9 +116,9 @@ public class HouseResponseDTOTest {
 		HouseResponseDTO response2 = new HouseResponseDTO(this._id, this.name, this.mascot, 
 				this.headOfHouse, this.houseGhost, this.founder, this.school);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response2);
-		TestCase.assertEquals(response.hashCode(), response2.hashCode());
+		assertNotNull(response);
+		assertNotNull(response2);
+		assertEquals(response.hashCode(), response2.hashCode());
 	}
 	
 	@Test
@@ -128,8 +127,8 @@ public class HouseResponseDTOTest {
 		HouseResponseDTO response = new HouseResponseDTO(this._id, this.name, this.mascot, 
 				this.headOfHouse, this.houseGhost, this.founder, this.school);
 
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.toString());
+		assertNotNull(response);
+		assertNotNull(response.toString());
 	}
 
 

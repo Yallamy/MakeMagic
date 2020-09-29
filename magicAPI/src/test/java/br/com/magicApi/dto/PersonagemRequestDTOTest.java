@@ -1,19 +1,18 @@
 package br.com.magicApi.dto;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import br.com.magicApi.EntityGenericUtil;
-import junit.framework.TestCase;
 
 /**
  * Classe de teste que representa os cenários de testes da classe {@link PersonagemRequestDTO}
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 6 de set de 2020
  */
-@RunWith(SpringRunner.class)
 public class PersonagemRequestDTOTest {
 	
 	private Long id;
@@ -28,7 +27,7 @@ public class PersonagemRequestDTOTest {
 	
 	private String patronus;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 
 		this.id = EntityGenericUtil.getLong();
@@ -45,13 +44,27 @@ public class PersonagemRequestDTOTest {
 		PersonagemRequestDTO request = new PersonagemRequestDTO(this.id, this.name, this.role, 
 				this.school, this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
-		TestCase.assertEquals(this.id, request.getId());
-		TestCase.assertEquals(this.name, request.getName());
-		TestCase.assertEquals(this.role, request.getRole());
-		TestCase.assertEquals(this.school, request.getSchool());
-		TestCase.assertEquals(this.house, request.getHouse());
-		TestCase.assertEquals(this.patronus, request.getPatronus());
+		assertNotNull(request);
+		assertEquals(this.id, request.getId());
+		assertEquals(this.name, request.getName());
+		assertEquals(this.role, request.getRole());
+		assertEquals(this.school, request.getSchool());
+		assertEquals(this.house, request.getHouse());
+		assertEquals(this.patronus, request.getPatronus());
+	}
+	
+	@Test
+	public void getInstanceVaziaTest() {
+
+		PersonagemRequestDTO request = new PersonagemRequestDTO();
+
+		assertNotNull(request);
+		assertEquals(null, request.getId());
+		assertEquals(null, request.getName());
+		assertEquals(null, request.getRole());
+		assertEquals(null, request.getSchool());
+		assertEquals(null, request.getHouse());
+		assertEquals(null, request.getPatronus());
 	}
 
 	@Test
@@ -69,12 +82,12 @@ public class PersonagemRequestDTOTest {
 		request.setHouse(this.house);
 		request.setPatronus(this.patronus);
 
-		TestCase.assertEquals(this.id, request.getId());
-		TestCase.assertEquals(this.name, request.getName());
-		TestCase.assertEquals(this.role, request.getRole());
-		TestCase.assertEquals(this.school, request.getSchool());
-		TestCase.assertEquals(this.house, request.getHouse());
-		TestCase.assertEquals(this.patronus, request.getPatronus());
+		assertEquals(this.id, request.getId());
+		assertEquals(this.name, request.getName());
+		assertEquals(this.role, request.getRole());
+		assertEquals(this.school, request.getSchool());
+		assertEquals(this.house, request.getHouse());
+		assertEquals(this.patronus, request.getPatronus());
 	}
 	
 	@Test
@@ -86,9 +99,9 @@ public class PersonagemRequestDTOTest {
 		PersonagemRequestDTO request2 = new PersonagemRequestDTO(this.id, this.name, this.role, 
 				this.school, this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
-		TestCase.assertNotNull(request2);
-		TestCase.assertEquals(request, request2);
+		assertNotNull(request);
+		assertNotNull(request2);
+		assertEquals(request, request2);
 	}
 	
 	@Test
@@ -100,9 +113,9 @@ public class PersonagemRequestDTOTest {
 		PersonagemRequestDTO request2 = new PersonagemRequestDTO(this.id, this.name, this.role, 
 				this.school, this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
-		TestCase.assertNotNull(request2);
-		TestCase.assertEquals(request.hashCode(), request2.hashCode());
+		assertNotNull(request);
+		assertNotNull(request2);
+		assertEquals(request.hashCode(), request2.hashCode());
 	}
 	
 	@Test
@@ -111,8 +124,8 @@ public class PersonagemRequestDTOTest {
 		PersonagemRequestDTO request = new PersonagemRequestDTO(this.id, this.name, this.role, 
 				this.school, this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
-		TestCase.assertNotNull(request.toString());
+		assertNotNull(request);
+		assertNotNull(request.toString());
 	}
 
 }

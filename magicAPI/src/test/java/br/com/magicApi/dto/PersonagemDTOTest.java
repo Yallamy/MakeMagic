@@ -1,10 +1,8 @@
 package br.com.magicApi.dto;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.hasToString;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
@@ -13,20 +11,16 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import br.com.magicApi.EntityGenericUtil;
-import junit.framework.TestCase;
 
 /**
  * Classe de teste que representa os cenários de testes da classe {@link PersonagemDTO}
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 6 de set de 2020
  */
-@RunWith(SpringRunner.class)
 public class PersonagemDTOTest {
 	
 	private Validator validator;
@@ -41,7 +35,7 @@ public class PersonagemDTOTest {
 	
 	private String patronus;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 
 		this.name = EntityGenericUtil.getString();
@@ -60,12 +54,12 @@ public class PersonagemDTOTest {
 		PersonagemDTO request = new PersonagemDTO(this.name, this.role, this.school, 
 				this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
-		TestCase.assertEquals(this.name, request.getName());
-		TestCase.assertEquals(this.role, request.getRole());
-		TestCase.assertEquals(this.school, request.getSchool());
-		TestCase.assertEquals(this.house, request.getHouse());
-		TestCase.assertEquals(this.patronus, request.getPatronus());
+		assertNotNull(request);
+		assertEquals(this.name, request.getName());
+		assertEquals(this.role, request.getRole());
+		assertEquals(this.school, request.getSchool());
+		assertEquals(this.house, request.getHouse());
+		assertEquals(this.patronus, request.getPatronus());
 	}
 	
 	@Test
@@ -73,12 +67,12 @@ public class PersonagemDTOTest {
 
 		PersonagemDTO request = new PersonagemDTO();
 
-		TestCase.assertNotNull(request);
-		TestCase.assertEquals(null, request.getName());
-		TestCase.assertEquals(null, request.getRole());
-		TestCase.assertEquals(null, request.getSchool());
-		TestCase.assertEquals(null, request.getHouse());
-		TestCase.assertEquals(null, request.getPatronus());
+		assertNotNull(request);
+		assertEquals(null, request.getName());
+		assertEquals(null, request.getRole());
+		assertEquals(null, request.getSchool());
+		assertEquals(null, request.getHouse());
+		assertEquals(null, request.getPatronus());
 	}
 	
 	@Test
@@ -87,10 +81,9 @@ public class PersonagemDTOTest {
 		PersonagemDTO request = new PersonagemDTO(null, this.role, this.school, 
 				this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
+		assertNotNull(request);
 		Set<ConstraintViolation<PersonagemDTO>> violations = validator.validate(request);
 		assertTrue(violations.size() == 1);
-		assertThat(violations, contains(hasProperty("propertyPath", hasToString("name"))));
 	}
 	
 	@Test
@@ -99,10 +92,9 @@ public class PersonagemDTOTest {
 		PersonagemDTO request = new PersonagemDTO(this.name, null, this.school, 
 				this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
+		assertNotNull(request);
 		Set<ConstraintViolation<PersonagemDTO>> violations = validator.validate(request);
 		assertTrue(violations.size() == 1);
-		assertThat(violations, contains(hasProperty("propertyPath", hasToString("role"))));
 	}
 	
 	@Test
@@ -111,10 +103,9 @@ public class PersonagemDTOTest {
 		PersonagemDTO request = new PersonagemDTO(this.name, this.role, null, 
 				this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
+		assertNotNull(request);
 		Set<ConstraintViolation<PersonagemDTO>> violations = validator.validate(request);
 		assertTrue(violations.size() == 1);
-		assertThat(violations, contains(hasProperty("propertyPath", hasToString("school"))));
 	}
 
 	@Test
@@ -130,11 +121,11 @@ public class PersonagemDTOTest {
 		request.setHouse(this.house);
 		request.setPatronus(this.patronus);
 
-		TestCase.assertEquals(this.name, request.getName());
-		TestCase.assertEquals(this.role, request.getRole());
-		TestCase.assertEquals(this.school, request.getSchool());
-		TestCase.assertEquals(this.house, request.getHouse());
-		TestCase.assertEquals(this.patronus, request.getPatronus());
+		assertEquals(this.name, request.getName());
+		assertEquals(this.role, request.getRole());
+		assertEquals(this.school, request.getSchool());
+		assertEquals(this.house, request.getHouse());
+		assertEquals(this.patronus, request.getPatronus());
 	}
 	
 	@Test
@@ -146,9 +137,9 @@ public class PersonagemDTOTest {
 		PersonagemDTO request2 = new PersonagemDTO(this.name, this.role, this.school, 
 				this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
-		TestCase.assertNotNull(request2);
-		TestCase.assertEquals(request, request2);
+		assertNotNull(request);
+		assertNotNull(request2);
+		assertEquals(request, request2);
 	}
 	
 	@Test
@@ -160,9 +151,9 @@ public class PersonagemDTOTest {
 		PersonagemDTO request2 = new PersonagemDTO(this.name, this.role, this.school, 
 				this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
-		TestCase.assertNotNull(request2);
-		TestCase.assertEquals(request.hashCode(), request2.hashCode());
+		assertNotNull(request);
+		assertNotNull(request2);
+		assertEquals(request.hashCode(), request2.hashCode());
 	}
 	
 	@Test
@@ -171,7 +162,7 @@ public class PersonagemDTOTest {
 		PersonagemDTO request = new PersonagemDTO(this.name, this.role, this.school, 
 				this.house, this.patronus);
 
-		TestCase.assertNotNull(request);
-		TestCase.assertNotNull(request.toString());
+		assertNotNull(request);
+		assertNotNull(request.toString());
 	}
 }

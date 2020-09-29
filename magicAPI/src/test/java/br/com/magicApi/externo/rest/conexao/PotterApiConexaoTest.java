@@ -1,12 +1,14 @@
 package br.com.magicApi.externo.rest.conexao;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.magicApi.EntityGenericUtil;
 import br.com.magicApi.config.Propriedades;
@@ -14,7 +16,6 @@ import br.com.magicApi.config.Propriedades.MagicApiConfig;
 import br.com.magicApi.config.Propriedades.MagicApiConfig.PotterApi;
 import br.com.magicApi.dto.externo.HouseRequestDTO;
 import br.com.magicApi.externo.rest.RestClientTemplate;
-import junit.framework.TestCase;
 
 
 /**
@@ -22,7 +23,7 @@ import junit.framework.TestCase;
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 6 de set de 2020
  */
-@RunWith(SpringRunner.class)
+@SpringBootTest
 public class PotterApiConexaoTest {
 
 	@InjectMocks
@@ -43,7 +44,7 @@ public class PotterApiConexaoTest {
 	
 	private String key;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 
 		this.request = HouseRequestDTO
@@ -66,8 +67,8 @@ public class PotterApiConexaoTest {
 		potterApiConexao.init();
 		RestClientTemplate response = potterApiConexao.getHouse(this.request);
 		
-		TestCase.assertNotNull(response);
-		TestCase.assertNotNull(response.getUrl());
+		assertNotNull(response);
+		assertNotNull(response.getUrl());
 	}
 	
 	@Test
@@ -76,8 +77,8 @@ public class PotterApiConexaoTest {
 		potterApiConexao.init();
 		RestClientTemplate response = potterApiConexao.getHouse(null);
 		
-		TestCase.assertNotNull(response);
-		TestCase.assertNull(response.getUrl());
+		assertNotNull(response);
+		assertNull(response.getUrl());
 	}
 	
 	@Test
@@ -88,8 +89,8 @@ public class PotterApiConexaoTest {
 				.builder()
 				.build());
 		
-		TestCase.assertNotNull(response);
-		TestCase.assertNull(response.getUrl());
+		assertNotNull(response);
+		assertNull(response.getUrl());
 	}
 
 }

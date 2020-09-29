@@ -1,21 +1,20 @@
 package br.com.magicApi.util;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.magicApi.EntityGenericUtil;
 import br.com.magicApi.dto.PersonagemDTO;
 import br.com.magicApi.entity.Personagem;
-import junit.framework.TestCase;
 
 /**
  * Classe de teste que representa os cenários de testes da classe {@link Util}
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 6 de set de 2020
  */
-@RunWith(SpringRunner.class)
 public class UtilTest {
 	
 	@InjectMocks
@@ -33,8 +32,8 @@ public class UtilTest {
 		
 		PersonagemDTO character = util.convertModelMapper(personagem, PersonagemDTO.class);
 
-		TestCase.assertNotNull(personagem);
-		TestCase.assertNotNull(character);
+		assertNotNull(personagem);
+		assertNotNull(character);
 	}
 	
 	@SuppressWarnings("static-access")
@@ -43,7 +42,7 @@ public class UtilTest {
 		
 		Personagem personagem = util.convertModelMapper(null, Personagem.class);
 
-		TestCase.assertNull(personagem);
+		assertNull(personagem);
 	}
 	
 	@SuppressWarnings("static-access")
@@ -56,7 +55,7 @@ public class UtilTest {
 		
 		Personagem personagem = util.convertModelMapper(source, null);
 
-		TestCase.assertNull(personagem);
+		assertNull(personagem);
 	}
 
 

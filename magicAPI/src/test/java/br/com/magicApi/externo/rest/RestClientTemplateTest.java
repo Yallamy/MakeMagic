@@ -1,29 +1,29 @@
 package br.com.magicApi.externo.rest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.magicApi.EntityGenericUtil;
 import br.com.magicApi.dto.PersonagemRequestDTO;
-import junit.framework.TestCase;
 
 /**
  * Classe de teste que representa os cenários de testes da classe {@link RestClientTemplate}
  * @author Yallamy Nascimento (yallamy@gmail.com)
  * @since 6 de set de 2020
  */
-@RunWith(SpringRunner.class)
 public class RestClientTemplateTest {
 
 	private RequestEntity<?> requestEntity;
@@ -39,7 +39,7 @@ public class RestClientTemplateTest {
 	private HttpEntity requestHttpEntity;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Before
+	@BeforeEach
 	public void setup() {
 		
 		this.params = new HashMap<String, String>();
@@ -77,12 +77,12 @@ public class RestClientTemplateTest {
 				.requestHttpEntity(this.requestHttpEntity)
 				.build();
 
-		TestCase.assertNotNull(request);
-		TestCase.assertEquals(this.requestEntity, request.getRequestEntity());
-		TestCase.assertEquals(this.responseType, request.getResponseType());
-		TestCase.assertEquals(this.url, request.getUrl());
-		TestCase.assertEquals(this.params, request.getParams());
-		TestCase.assertEquals(this.requestHttpEntity, request.getRequestHttpEntity());
+		assertNotNull(request);
+		assertEquals(this.requestEntity, request.getRequestEntity());
+		assertEquals(this.responseType, request.getResponseType());
+		assertEquals(this.url, request.getUrl());
+		assertEquals(this.params, request.getParams());
+		assertEquals(this.requestHttpEntity, request.getRequestHttpEntity());
 	}
 
 	@Test
@@ -90,12 +90,12 @@ public class RestClientTemplateTest {
 
 		RestClientTemplate request = RestClientTemplate.builder().build();
 
-		TestCase.assertNotNull(request);
-		TestCase.assertEquals(null, request.getRequestEntity());
-		TestCase.assertEquals(null, request.getResponseType());
-		TestCase.assertEquals(null, request.getUrl());
-		TestCase.assertEquals(null, request.getParams());
-		TestCase.assertEquals(null, request.getRequestHttpEntity());
+		assertNotNull(request);
+		assertEquals(null, request.getRequestEntity());
+		assertEquals(null, request.getResponseType());
+		assertEquals(null, request.getUrl());
+		assertEquals(null, request.getParams());
+		assertEquals(null, request.getRequestHttpEntity());
 	}
 	
 
@@ -110,11 +110,11 @@ public class RestClientTemplateTest {
 		request.setParams(this.params);
 		request.setRequestHttpEntity(this.requestHttpEntity);
 
-		TestCase.assertEquals(this.requestEntity, request.getRequestEntity());
-		TestCase.assertEquals(this.responseType, request.getResponseType());
-		TestCase.assertEquals(this.url, request.getUrl());
-		TestCase.assertEquals(this.params, request.getParams());
-		TestCase.assertEquals(this.requestHttpEntity, request.getRequestHttpEntity());
+		assertEquals(this.requestEntity, request.getRequestEntity());
+		assertEquals(this.responseType, request.getResponseType());
+		assertEquals(this.url, request.getUrl());
+		assertEquals(this.params, request.getParams());
+		assertEquals(this.requestHttpEntity, request.getRequestHttpEntity());
 	}
 
 	@Test
@@ -138,10 +138,10 @@ public class RestClientTemplateTest {
 				.requestHttpEntity(this.requestHttpEntity)
 				.build();
 
-		TestCase.assertNotNull(experado);
-		TestCase.assertNotNull(request);
-		TestCase.assertTrue(experado.equals(request));
-		TestCase.assertEquals(experado.hashCode(), request.hashCode());
+		assertNotNull(experado);
+		assertNotNull(request);
+		assertTrue(experado.equals(request));
+		assertEquals(experado.hashCode(), request.hashCode());
 	}
 
 	@Test
@@ -156,7 +156,7 @@ public class RestClientTemplateTest {
 				.requestHttpEntity(this.requestHttpEntity)
 				.build();
 
-		TestCase.assertNotNull(request);
-		TestCase.assertNotNull(request.toString());
+		assertNotNull(request);
+		assertNotNull(request.toString());
 	}
 }
