@@ -47,7 +47,7 @@ public class PotterApiClient extends ApiClient {
 	
 	@SuppressWarnings("rawtypes")
 	@Autowired
-    private CircuitBreakerFactory circuitBreakerFactory;
+	private CircuitBreakerFactory circuitBreakerFactory;
 	
 	private CircuitBreaker circuitBreaker;
 	
